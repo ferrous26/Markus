@@ -14,7 +14,7 @@ class Student < User
   accepts_nested_attributes_for :section
 
   validates_numericality_of :grace_credits, :only_integer => true,
-    :greater_than_or_equal_to => 0
+    :greater_than_or_equal_to => 0, :less_than_or_equal_to => 2_000_000_000
 
   CSV_UPLOAD_ORDER = USER_STUDENT_CSV_UPLOAD_ORDER
   SESSION_TIMEOUT = USER_STUDENT_SESSION_TIMEOUT
