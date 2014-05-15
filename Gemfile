@@ -14,7 +14,6 @@ gem 'rubyzip', '0.9.9'
 gem 'ya2yaml'
 gem 'i18n'
 gem 'will_paginate'
-gem 'fastercsv', :platforms => :ruby_18
 gem 'dynamic_form'
 # FIXME: The 'exception_notification' gem version 4
 # is not compatible with Rails 3.0.x
@@ -66,7 +65,6 @@ end
 group :development, :test do
   gem 'rdoc'
   gem 'iconv', :platforms => :mri_20
-  gem 'rcov', :platforms => :mri_18
   gem 'simplecov', :platforms => [:mri_19,:mri_20]
   # FIXME: shoulda (>=4.0) introduces several deprecation warnings in tests
   # we have to fix before doing an upgrade
@@ -79,7 +77,6 @@ group :development, :test do
   gem 'faker'
   gem 'railroady'
   gem 'time-warp'
-  gem 'ruby-debug', :platforms => :mri_18
   gem 'debugger', :platforms =>  [:mri_19,:mri_20]
   gem 'mocha', :require => false
 end
