@@ -9,7 +9,7 @@
 source 'http://rubygems.org'
 
 # Bundler requires these gems in all environments
-gem 'rails', '3.2.16'
+gem 'rails', '4.0.5'
 gem 'rubyzip', '0.9.9'
 gem 'ya2yaml'
 gem 'i18n'
@@ -18,7 +18,6 @@ gem 'dynamic_form'
 # FIXME: The 'exception_notification' gem version 4
 # is not compatible with Rails 3.0.x
 gem 'exception_notification', '<4.0'
-gem 'minitest',"4.7.5", :platforms => :ruby_20
 gem 'calendar_date_select', :git => 'git://github.com/paneq/calendar_date_select.git'
 gem 'auto_complete'
 gem 'json'
@@ -28,8 +27,8 @@ gem 'prototype-rails' # FIXME: Will be needed with Rails3.1
 
 group :assets do
   gem 'tilt', '~> 1.3.7'
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'sass-rails',   '~> 4.0.0'
+  gem 'coffee-rails', '~> 4.0.0'
   gem 'uglifier',     '>= 1.0.3'
   gem 'execjs'
   gem 'libv8'
