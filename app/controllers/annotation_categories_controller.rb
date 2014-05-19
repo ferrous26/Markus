@@ -1,4 +1,4 @@
-require 'iconv'
+require 'encoding'
 
 class AnnotationCategoriesController < ApplicationController
   include AnnotationCategoriesHelper
@@ -108,10 +108,8 @@ class AnnotationCategoriesController < ApplicationController
     annotation_category_list = params[:annotation_category_list_csv]
     annotation_category_number = 0
     annotation_line = 0
-    unless annotation_category_list.nil?
-      if encoding != nil
-        annotation_category_list = StringIO.new(Iconv.iconv('UTF-8', encoding, annotation_category_list.read).join)
-      end
+    if annotation_category_list
+      annotation_category_list = annotation_category_list.utf8_encode encoding
       CSV.parse(annotation_category_list) do |row|
         next if CSV.generate_line(row).strip.empty?
         annotation_line += 1
@@ -142,12 +140,9 @@ class AnnotationCategoriesController < ApplicationController
     file = params[:annotation_category_list_yml]
     annotation_category_number = 0
     annotation_line = 0
-    if !file.nil? && !file.blank?
+    unless file.blank?
       begin
-        if encoding != nil
-          file = StringIO.new(Iconv.iconv('UTF-8', encoding, file.read).join)
-        end
-        annotations = YAML::load(file)
+        annotations = YAML::load(file.utf8_encode encoding)
       rescue ArgumentError => e
         flash[:error] = I18n.t('annotations.upload.syntax_error',
           :error => "#{e}")

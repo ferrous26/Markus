@@ -66,7 +66,6 @@ end
 group :development, :test do
   gem 'rdoc'
   gem 'thin'
-  gem 'iconv', :platforms => :mri_20
   gem 'simplecov'
   # FIXME: shoulda (>=4.0) introduces several deprecation warnings in tests
   # we have to fix before doing an upgrade
