@@ -1,0 +1,30 @@
+language: ruby
+cache: bundler
+rvm:
+  - 2.1.2
+
+bundler_args: --without unicorn mysql sqlite
+
+addons:
+  postgresql: "9.3"
+
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - cp config/database.yml.travis config/database.yml
+  - bundle exec rake db:setup
+
+install: 
+  - sudo apt-get update -qq
+  - sudo apt-get install -y libaprutil1-dev swig libv8-dev
+  - wget http://apache.parentingamerica.com/subversion/subversion-1.9.0-alpha2.tar.gz -O /tmp/subversion.tar.bz2
+  - tar -xzf /tmp/subversion.tar.bz2
+  - cd subversion-1.9.0-alpha2
+  - wget http://www.sqlite.org/sqlite-amalgamation-3071501.zip -O sqlite.zip
+  - unzip sqlite.zip
+  - mv sqlite-amalgamation-3071501 sqlite-amalgamation
+  - ./configure --with-ruby-sitedir=~/.rvm/rubies/`rvm current`/lib/ruby/ --prefix=$HOME/.rvm/rubies/`rvm current`/ --disable-mod-activation --without-apache-libexecdir
+  - make
+  - make install
+  - make swig-rb
+  - make install swig-rb
+
