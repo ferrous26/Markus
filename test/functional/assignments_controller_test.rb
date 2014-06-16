@@ -57,7 +57,7 @@ class AssignmentsControllerTest < AuthenticatedControllerTest
         post_as @admin, :create, @attributes
         new_assignment = Assignment.find_by_short_identifier(@short_identifier)
         assert_not_nil new_assignment
-        assert redirect_to(:action => 'edit', :id => new_assignment)
+        assert redirect_to(action: 'edit', id: new_assignment)
       end
 
       should 'have an assignment stat object associated' do
@@ -71,7 +71,7 @@ class AssignmentsControllerTest < AuthenticatedControllerTest
       should "set the flash's success message" do
         post_as @admin, :create, @attributes
         new_assignment = Assignment.find_by_short_identifier(@short_identifier)
-        assert_equal flash[:success], 'Successfully created the assignment'
+        assert_equal 'Successfully created the assignment', flash[:success]
       end
 
       context 'with section due dates' do
@@ -249,7 +249,7 @@ class AssignmentsControllerTest < AuthenticatedControllerTest
         assert_equal @assignment.submission_rule.type.to_s,
                      a.submission_rule.type.to_s
         assert_not_nil assigns(:assignment)
-        assert !assigns(:assignment).errors.empty?
+        refute_empty assigns(:assignment).errors
       end
 
       should 'be able to add periods to submission rule class' do
@@ -323,7 +323,7 @@ class AssignmentsControllerTest < AuthenticatedControllerTest
                    :submission_rule_attributes => {
                      :type => 'NoLateSubmissionRule',
                      :periods_attributes => {
-                        '1' => { :id => period.id } },
+                        '1' => { :id => period.id, hours: 1 } },
                      :id => @assignment.submission_rule.id,
                      }}}
         assert_response :redirect

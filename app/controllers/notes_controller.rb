@@ -54,7 +54,7 @@ class NotesController < ApplicationController
   end
 
   def create
-    @note = Note.new(params[:note])
+    @note = Note.new(notes_params)
     @note.noteable_type = params[:noteable_type]
     @note.creator_id = @current_user.id
 
@@ -96,7 +96,7 @@ class NotesController < ApplicationController
   end
 
   def update
-    if @note.update_attributes(params[:note])
+    if @note.update_attributes(notes_params)
       flash[:success] = I18n.t('notes.update.success')
       redirect_to action: 'index'
     else
@@ -142,4 +142,10 @@ class NotesController < ApplicationController
       end
     end
 
+
+  private
+
+  def notes_params
+    params.require(:note).permit(:notes_message, :noteable_id)
+  end
 end
