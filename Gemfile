@@ -74,6 +74,8 @@ group :development, :test do
   gem 'byebug', platforms: [:mri_20, :mri_21]
   gem 'mocha', require: false
   gem 'quiet_assets'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # If you  plan to use unicorn servers for production
