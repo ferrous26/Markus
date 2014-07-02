@@ -77,6 +77,8 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl_rails'
 end
 
 # If you  plan to use unicorn servers for production
