@@ -8,11 +8,11 @@ class Assignment < ActiveRecord::Base
   }
 
   has_many :rubric_criteria,
-           class_name: 'RubricCriterion',
-           order: :position
+           -> { order(:position) },
+           class_name: 'RubricCriterion'
   has_many :flexible_criteria,
-           class_name: 'FlexibleCriterion',
-           order: :position
+           -> { order(:position) },
+           class_name: 'FlexibleCriterion'
   has_many :assignment_files
   has_many :test_files
   has_many :criterion_ta_associations
@@ -84,7 +84,7 @@ class Assignment < ActiveRecord::Base
   after_save :update_assigned_tokens
 
   # Set the default order of assignments: in ascending order of due_date
-  default_scope order('due_date ASC')
+  default_scope -> { order('due_date ASC') }
 
   # Export a YAML formatted string created from the assignment rubric criteria.
   def export_rubric_criteria_yml

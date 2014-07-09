@@ -331,10 +331,10 @@ Markus::Application.routes.draw do
     end
   end
 
-  match 'main', controller: 'main', action: 'index'
-  match 'main/about', controller: 'main', action: 'about'
-  match 'main/logout', controller: 'main', action: 'logout'
+  get 'main', controller: 'main', action: 'index'
+  get 'main/about', controller: 'main', action: 'about'
+  get 'main/logout', controller: 'main', action: 'logout'
 
   # Return a 404 when no route is match
-  match '*path', controller: 'main', action: 'page_not_found'
+  get '*path', controller: 'main', action: 'page_not_found'
 end

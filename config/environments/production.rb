@@ -1,6 +1,9 @@
 # encoding: utf-8
 # Settings specified here will take precedence over those in config/environment.rb
 Markus::Application.configure do
+
+  config.eager_load = true
+
   # rails will fallback to en, no matter what is set as config.i18n.default_locale
   # rails will fallback to config.i18n.default_locale translation
   config.i18n.fallbacks = true
@@ -10,9 +13,6 @@ Markus::Application.configure do
   # Code is not reloaded between requests
   config.cache_classes = true
   # set this to false, if you want automatic reload of changed code
-
-  # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = true
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
