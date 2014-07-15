@@ -24,8 +24,8 @@ class Assignment < ActiveRecord::Base
   accepts_nested_attributes_for :assignment_stat, allow_destroy: true
 
   has_many :annotation_categories,
-           class_name: 'AnnotationCategory',
-           order: :position
+           -> { order(:position) },
+           class_name: 'AnnotationCategory'
 
   has_many :groupings
   has_many :ta_memberships,
