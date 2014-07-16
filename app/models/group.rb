@@ -45,7 +45,7 @@ class Group < ActiveRecord::Base
   end
 
   def grouping_for_assignment(aid)
-    groupings.first(conditions: {assignment_id: aid})
+    Grouping.assignment_groupings(aid).first
   end
 
   # Returns the URL for externally accessible repos
