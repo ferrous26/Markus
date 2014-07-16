@@ -1,6 +1,6 @@
 Markus::Application.routes.draw do
   # Install the default routes as the lowest priority.
-  root controller: "main", action: "login"
+  root controller: "main", action: "login", via: [:post, :get]
 
   # optional path scope (denoted by the parentheses)
   scope "(:locale)", locale: /en|fr|pt/  do
@@ -329,10 +329,10 @@ Markus::Application.routes.draw do
     end
   end
 
-  get 'main', controller: 'main', action: 'index'
-  get 'main/about', controller: 'main', action: 'about'
-  get 'main/logout', controller: 'main', action: 'logout'
+  match 'main', controller: 'main', action: 'index', via: :post
+  match 'main/about', controller: 'main', action: 'about', via: :post
+  match 'main/logout', controller: 'main', action: 'logout', via: :post
 
   # Return a 404 when no route is match
-  get '*path', controller: 'main', action: 'page_not_found'
+  match '*path', controller: 'main', action: 'page_not_found', via: :all
 end
