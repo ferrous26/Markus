@@ -53,6 +53,8 @@ module Markus
   config.assets.enabled = true
   config.assets.version = '1.0'
 
+  config.secret_key_base = 'config/secrets.yml'
+
   # Validate passed locales
   I18n.enforce_available_locales = true
   end
