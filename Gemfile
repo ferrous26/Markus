@@ -77,7 +77,6 @@ group :test do
   gem 'simplecov'
   gem 'shoulda'
   gem 'machinist', '< 2'
-  gem 'faker'
   gem 'time-warp'
   gem 'mocha', require: false
   gem 'rspec-rails', '~> 3.0'
@@ -89,6 +88,22 @@ end
 # Gems needed (wanted) for both development and test can be
 # listed here
 group :development, :test do
+  gem 'faker' # required for database seeding
+  gem 'debugger', :platforms => :mri_19
+  gem 'byebug', :platforms => [:mri_20, :mri_21]
+end
+
+# Gems not needed at runtime should go here so that MarkUs does
+# not waste time/memory loading them during boot
+group :offline do
+  gem 'rdoc'
+  gem 'railroady'
+end
+
+# Gems needed (wanted) for both development and test can be
+# listed here
+group :development, :test do
+  gem 'faker' # required for database seeding
   gem 'debugger', :platforms => :mri_19
   gem 'byebug', :platforms => [:mri_20, :mri_21]
 end
