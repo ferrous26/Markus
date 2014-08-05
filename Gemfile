@@ -36,6 +36,7 @@ gem 'exception_notification'
 gem 'auto_complete'
 gem 'json'
 gem 'activerecord-import'
+gem 'strong_parameters' # NOTE: this goes away when upgrading to Rails4
 
 gem 'tilt'
 gem 'libv8'
