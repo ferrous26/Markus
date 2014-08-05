@@ -36,6 +36,7 @@ gem 'exception_notification'
 gem 'auto_complete'
 gem 'json'
 gem 'activerecord-import'
+gem 'strong_parameters' # NOTE: this goes away when upgrading to Rails4
 
 gem 'tilt'
 gem 'libv8'
@@ -69,8 +70,9 @@ end
 # Gems only used for development should be listed here so that they
 # are not loaded in other environments.
 group :development do
-  gem 'thin'
   gem 'quiet_assets'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test do
@@ -81,8 +83,6 @@ group :test do
   gem 'mocha', require: false
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
-  gem 'better_errors'
-  gem 'binding_of_caller'
 end
 
 # Gems needed (wanted) for both development and test can be
@@ -98,21 +98,7 @@ end
 group :offline do
   gem 'rdoc'
   gem 'railroady'
-end
-
-# Gems needed (wanted) for both development and test can be
-# listed here
-group :development, :test do
-  gem 'faker' # required for database seeding
-  gem 'debugger', :platforms => :mri_19
-  gem 'byebug', :platforms => [:mri_20, :mri_21]
-end
-
-# Gems not needed at runtime should go here so that MarkUs does
-# not waste time/memory loading them during boot
-group :offline do
-  gem 'rdoc'
-  gem 'railroady'
+  gem 'thin'
 end
 
 # If you  plan to use unicorn servers for production

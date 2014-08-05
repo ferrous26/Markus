@@ -191,6 +191,7 @@ class AnnotationCategoriesController < ApplicationController
   private
 
   def annotation_category_params
+<<<<<<< HEAD
     params.require(:annotation_category)
           .permit(:annotation_category_name, :assignment)
   end
@@ -198,5 +199,14 @@ class AnnotationCategoriesController < ApplicationController
   def annotation_text_params
     params.require(:annotation_text)
           .permit(:content, :annotation_category, :creator, :last_editor)
+=======
+    # we do not want to allow :position to be given directly
+    params.require(:annotation_category)
+          .permit(:annotation_category_name, :assignment_id)
+  end
+
+  def annotation_text_params
+    params.require(:annotation_text).permit(:content)
+>>>>>>> strong_params
   end
 end
