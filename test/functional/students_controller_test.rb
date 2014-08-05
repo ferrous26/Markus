@@ -129,17 +129,10 @@ class StudentsControllerTest < AuthenticatedControllerTest
         put_as @admin,
                :update,
                id: @student.id,
-<<<<<<< HEAD
-             user: { user_name: 'machinist_student1',
-                     last_name: 'Doe',
-                    first_name: 'John',
-                    section_id: @section.id }
-=======
                user: {  user_name:  'machinist_student1',
                         last_name:  'Doe',
                         first_name: 'John',
                         section_id: @section.id }
->>>>>>> strong_params
         assert_response :redirect
         assert_equal I18n.t('students.update.success',
                             :user_name => @student.user_name),

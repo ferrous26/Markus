@@ -32,13 +32,6 @@ Markus::Application.configure do
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
 
-<<<<<<< HEAD
-=======
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  config.active_record.auto_explain_threshold_in_seconds = 1.0
-
->>>>>>> strong_params
   ###################################################################
   # MarkUs SPECIFIC CONFIGURATION
   #   - use "/" as path separator no matter what OS server is running

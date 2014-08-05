@@ -5,11 +5,7 @@ class AssignmentFile < ActiveRecord::Base
   validates_presence_of :filename
   validates_uniqueness_of :filename, scope: :assignment_id
   validates_format_of :filename,
-<<<<<<< HEAD
-          with: /\A[0-9a-zA-Z\.\-_]+\Z/,
-=======
           with: /\A[0-9a-zA-Z\.\-_]+\z/,
->>>>>>> strong_params
           message: I18n.t('validation_messages.format_of_assignment_file')
 
 end

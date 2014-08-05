@@ -28,13 +28,6 @@ Markus::Application.configure do
   # Show Deprecated Warnings (to :log or to :stderr)
   config.active_support.deprecation = :stderr
 
-<<<<<<< HEAD
-=======
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  config.active_record.auto_explain_threshold_in_seconds = 1.0
-
->>>>>>> strong_params
   ###################################################################
   # MarkUs SPECIFIC CONFIGURATION
   #   - use "/" as path separator no matter what OS server is running
