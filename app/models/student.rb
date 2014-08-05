@@ -50,7 +50,7 @@ class Student < User
   end
 
   def pending_groupings_for(aid)
-    pending_groupings.find_all_by_assignment_id(aid)
+    pending_groupings.where(assignment_id: aid)
   end
 
   def remaining_grace_credits
@@ -124,8 +124,8 @@ class Student < User
       @assignment = Assignment.find(aid)
       @grouping = Grouping.new
       @grouping.assignment_id = @assignment.id
-      if !Group.first(conditions: {group_name: self.user_name}).nil?
-        @group = Group.first(conditions: {group_name: self.user_name})
+      if !Group.where(group_name: self.user_name).first.nil?
+        @group = Group.where(group_name: self.user_name).first
       else
         @group = Group.new(group_name: self.user_name)
         # We want to have the user_name as repository name,

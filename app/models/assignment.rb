@@ -257,7 +257,7 @@ class Assignment < ActiveRecord::Base
 
   # Make a list of students without any groupings
   def no_grouping_students_list
-   @students = Student.all(order: :last_name, conditions: {hidden: false})
+   @students = Student.where(hidden: false).order(:last_name)
    @students_list = []
    @students.each do |s|
      unless s.has_accepted_grouping_for?(self.id)
@@ -346,9 +346,9 @@ class Assignment < ActiveRecord::Base
       group.save
     else
       return nil if new_group_name.nil?
-      if Group.first(conditions: {group_name: new_group_name})
-        group = Group.first(conditions: {group_name: new_group_name})
-        unless self.groupings.find_by_group_id(group.id).nil?
+      if Group.where(group_name: new_group_name).first
+        group = Group.where(group_name: new_group_name).first
+        unless self.groupings.where(group_id: group.id).nil?
           raise "Group #{new_group_name} already exists"
         end
       else
@@ -516,12 +516,12 @@ class Assignment < ActiveRecord::Base
   end
 
   def ungrouped_students
-    Student.all(conditions: {hidden: false}) - grouped_students
+    Student.where(hidden: false) - grouped_students
   end
 
   def valid_groupings
     result = []
-    groupings.all(include: [{student_memberships: :user}]).each do |grouping|
+    groupings.load.each do |grouping|
       if grouping.admin_approved || grouping.student_memberships.count >= group_min
         result.push(grouping)
       end
@@ -750,7 +750,7 @@ class Assignment < ActiveRecord::Base
     end
 
     steps = 100 / intervals # number of percentage steps in each interval
-    groupings = self.groupings.all(include: [{current_submission_used: :results}])
+    groupings = self.groupings.load
 
     groupings.each do |grouping|
       submission = grouping.current_submission_used

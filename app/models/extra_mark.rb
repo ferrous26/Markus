@@ -6,11 +6,11 @@ class ExtraMark < ActiveRecord::Base
     points: 'points'
   }
 
-  scope :points, conditions: {unit: ExtraMark::UNITS[:points]}
-  scope :percentage, conditions: {unit: ExtraMark::UNITS[:percentage]}
+  scope :points, -> { where(unit: ExtraMark::UNITS[:points]) }
+  scope :percentage, -> { where(unit: ExtraMark::UNITS[:percentage]) }
 
-  scope :positive, conditions: ['extra_mark > 0']
-  scope :negative, conditions: ['extra_mark < 0']
+  scope :positive, -> { where('extra_mark > 0') }
+  scope :negative, -> { where('extra_mark < 0') }
 
   before_save :ensure_not_released_to_students
   before_update :ensure_not_released_to_students

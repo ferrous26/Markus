@@ -6,8 +6,8 @@ require 'encoding'
 # marks on each question (i.e. GradeEntryStudents).
 class GradeEntryForm < ActiveRecord::Base
   has_many                  :grade_entry_items,
-                            dependent: :destroy,
-                            order: :position
+                            -> { order(:position) },
+                            dependent: :destroy
   has_many                  :grade_entry_students,
                             dependent: :destroy
   has_many                  :grades, through: :grade_entry_items
@@ -55,7 +55,7 @@ class GradeEntryForm < ActiveRecord::Base
     totalMarks = 0
     numReleased = 0
 
-    grade_entry_students = self.grade_entry_students.all(conditions: { released_to_student: true })
+    grade_entry_students = self.grade_entry_students.where(released_to_student: true)
     grade_entry_students.each do |grade_entry_student|
       # If there is no saved total grade, update it
       totalMark = grade_entry_student.total_grade || grade_entry_student.update_total_grade

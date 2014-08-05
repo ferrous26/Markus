@@ -48,7 +48,8 @@ class FlexibleCriterion < Criterion
   def self.create_csv(assignment)
     csv_string = CSV.generate do |csv|
       # TODO temporary until Assignment gets its criteria method
-      criteria = FlexibleCriterion.find_all_by_assignment_id(assignment.id, order: :position)
+      criteria = FlexibleCriterion.where(assignment_id: assignment.id)
+                                  .order(:position)
       criteria.each do |c|
         criterion_array = [c.flexible_criterion_name, c.max, c.description]
         csv << criterion_array
@@ -79,7 +80,10 @@ class FlexibleCriterion < Criterion
     criterion.assignment = assignment
     criterion.flexible_criterion_name = row[0]
     # assert that no other criterion uses the same name for the same assignment.
-    if FlexibleCriterion.find_all_by_assignment_id_and_flexible_criterion_name(assignment.id, criterion.flexible_criterion_name).size != 0
+    name  = criterion.flexible_criterion_name
+    query = FlexibleCriterion.where(assignment_id: assignment.id,
+                                    flexible_criterion_name: name)
+    unless query.size.zero?
       raise CSV::MalformedCSVError.new(I18n.t('criteria_csv_error.name_not_unique'))
     end
     criterion.max = row[1]
@@ -131,7 +135,9 @@ class FlexibleCriterion < Criterion
   def self.next_criterion_position(assignment)
     # TODO temporary, until Assignment gets its criteria method
     #      nevermind the fact that this computation should really belong in assignment
-    last_criterion = FlexibleCriterion.find_last_by_assignment_id(assignment.id, order: :position)
+    last_criterion = FlexibleCriterion.where(assignment_id: assignment.id)
+                                      .order(:position)
+                                      .last
     return last_criterion.position + 1 unless last_criterion.nil?
     1
   end
